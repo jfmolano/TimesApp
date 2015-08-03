@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical"
+    android:weightSum="1">
+
+    <Button
+        android:id="@+id/btnStart"
+        android:layout_width="500px"
+        android:layout_height="wrap_content"
+        android:text="Iniciar medicion" />
+
+    <Button
+        android:id="@+id/btnDisplay"
+        android:layout_width="500px"
+        android:layout_height="wrap_content"
+        android:text="Detener medicion" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textoCodigo"
+        android:text="Codigo: "
+        android:textStyle="bold"
+        android:textSize="25dp"
+        android:textIsSelectable="false" />
+
+    <EditText
+        android:id="@+id/codigoEdText"
+        android:layout_width="400px"
+        android:layout_height="wrap_content"/>
+
+    <Button
+        android:id="@+id/btnActualizarCod"
+        android:layout_width="500px"
+        android:layout_height="wrap_content"
+        android:text="Actualizar codigo" />
+</LinearLayout>
+

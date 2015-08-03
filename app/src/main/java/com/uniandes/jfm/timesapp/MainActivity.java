@@ -33,7 +33,7 @@ public class MainActivity extends Activity {
     public final static int ITERACIONES_RUIDO = 8;
     public final static int T_INTERVALO_RUIDO = 2000;
     //URL del servidor
-    public final static String URLSERV = "http://157.253.0.18:80/api/marcas";
+    public final static String URLSERV = "http://157.253.195.165:80/api/marcas";
 
     //Botones de aplicacion
     private Button btnStart;

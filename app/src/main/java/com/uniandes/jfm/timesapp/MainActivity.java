@@ -39,6 +39,7 @@ public class MainActivity extends Activity {
     private Button btnStart;
     private Button btnStop;
     private Button btnActualizarCod;
+    private Button btnPrueba;
     private EditText codigoEntrada;
     private TextView vistaCodigo;
 
@@ -71,6 +72,22 @@ public class MainActivity extends Activity {
         btnStop = (Button) findViewById(R.id.btnDisplay);
         btnStart = (Button) findViewById(R.id.btnStart);
         btnActualizarCod = (Button) findViewById(R.id.btnActualizarCod);
+        btnPrueba = (Button) findViewById(R.id.btnPrueba);
+
+        //Boton Prueba
+        btnPrueba.setOnClickListener(new OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+
+                MainActivity.this.runOnUiThread(new Runnable() {
+                    public void run() {
+                        metodoPrueba();
+                    }
+                });
+            }
+
+        });
 
         //Boton stop
         btnStop.setOnClickListener(new OnClickListener() {
@@ -182,5 +199,9 @@ public class MainActivity extends Activity {
             }
 
         });
+    }
+
+    private void metodoPrueba() {
+        Toast.makeText(getBaseContext(), "Boton prueba", Toast.LENGTH_LONG).show();
     }
 }

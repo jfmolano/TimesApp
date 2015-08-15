@@ -6,7 +6,9 @@ import android.app.PendingIntent;
 import android.content.ComponentName;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
+import android.net.TrafficStats;
 import android.os.Bundle;
 import android.os.SystemClock;
 import android.view.View;
@@ -17,6 +19,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.content.Context;
 import java.util.Calendar;
+import java.util.Iterator;
+import java.util.List;
 import java.util.Locale;
 import java.util.TimeZone;
 
@@ -203,5 +207,31 @@ public class MainActivity extends Activity {
 
     private void metodoPrueba() {
         Toast.makeText(getBaseContext(), "Boton prueba", Toast.LENGTH_LONG).show();
+        List<ApplicationInfo> appsInfo = getApplicationContext().getPackageManager()
+                .getInstalledApplications(PackageManager.GET_UNINSTALLED_PACKAGES);
+        Iterator<ApplicationInfo> it = appsInfo.iterator();
+        while(it.hasNext())
+        {
+            ApplicationInfo apInfo = it.next();
+            String procName = apInfo.processName;
+            int uid = apInfo.uid;
+            if(procName.contains("instagram")||procName.contains("facebook"))
+            {
+                System.out.print("Nombre de proceso: ");
+                System.out.println(procName);
+                System.out.print("uid: ");
+                System.out.println(uid);
+                System.out.print("Consumo de red paquetes (TX): ");
+                System.out.println(TrafficStats.getUidTxPackets(uid));
+                System.out.print("Consumo de red paquetes (RX): ");
+                System.out.println(TrafficStats.getUidRxPackets(uid));
+                System.out.print("Consumo de red bytes (TX): ");
+                System.out.println(TrafficStats.getUidTxBytes(uid));
+                System.out.print("Consumo de red bytes (RX): ");
+                System.out.println(TrafficStats.getUidRxBytes(uid));
+            }
+        }
+        long mStartRX = TrafficStats.getTotalRxBytes();
+        Toast.makeText(getBaseContext(), "mStartRX "+mStartRX, Toast.LENGTH_LONG).show();
     }
 }

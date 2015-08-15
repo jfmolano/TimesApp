@@ -27,17 +27,17 @@ import java.util.TimeZone;
 public class MainActivity extends Activity {
     //- - - - - - - - - - - - - - Constantes - - - - - - - - - - - - - - - -
     //Tiempo alarma
-    public final static int MINUTOSALARMA = 15;
+    public final static int MINUTOSALARMA = 1;
     //Fecha auto apagado
     public final static int DIA = 8;
-    public final static int MES = Calendar.AUGUST;
+    public final static int MES = Calendar.SEPTEMBER;
     public final static int HORA = 12;
     public final static int MINUTO = 00;
     //Parametros medicion de ruido
-    public final static int ITERACIONES_RUIDO = 8;
-    public final static int T_INTERVALO_RUIDO = 2000;
+    public final static int ITERACIONES_RUIDO = 1;
+    public final static int T_INTERVALO_RUIDO = 1000;
     //URL del servidor
-    public final static String URLSERV = "http://157.253.195.165:80/api/marcas";
+    public final static String URLSERV = "http://157.253.235.172:80/api/marcas";
 
     //Botones de aplicacion
     private Button btnStart;
@@ -136,7 +136,7 @@ public class MainActivity extends Activity {
 
                         // We want the alarm to go off 30 seconds from now.
                         long firstTime = SystemClock.elapsedRealtime();
-                        firstTime += 10 * 1000;
+                        firstTime += 5 * 1000;
 
                         // Schedule the alarm!
                         AlarmManager am = (AlarmManager) getSystemService(ALARM_SERVICE);

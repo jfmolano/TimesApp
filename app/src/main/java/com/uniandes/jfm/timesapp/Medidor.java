@@ -225,10 +225,10 @@ public class Medidor extends Service {
         //MUSICA - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
         AudioManager manager = (AudioManager)this.getSystemService(Context.AUDIO_SERVICE);
-        enReproduccion = "PlaySI";
+        enReproduccion = "1";
         if(!manager.isMusicActive())
         {
-            enReproduccion = "PlayNO";
+            enReproduccion = "0";
         }
         if(enReproduccion == null)
         {
@@ -322,16 +322,18 @@ public class Medidor extends Service {
                     "\"infoAdd\":\"-\"}";*/
             String jsonPost = "{\"codigo\":\""+codigo+"\"," +
                     "\"tiempo\":\""+hora+"\"," +
-                    "\"lugar\":\""+salon+"\"," +
+                    "\"mac1\":\""+macAP+"\"," +
+                    "\"mac2\":\""+macAP+"\"," +
+                    "\"mac3\":\""+macAP+"\"," +
                     "\"ip\":\""+ip+"\"," +
                     "\"ipaccesspoint\":\""+ipAP+"\"," +
                     "\"ruido\":\""+ruidoString+"\"," +
                     "\"luz\":\""+luzString+"\"," +
-                    "\"musica\":\""+pista+";"+artista+"\"," +
-                    "\"temperatura\":\""+enReproduccion+"\"," +
-                    "\"humedad\":\""+apps+"\"," +
-                    "\"grupo\":\""+macAP+"\"," +
-                    "\"infoAdd\":\""+netmask+"\"}";
+                    "\"pista\":\""+pista+"\"," +
+                    "\"artista\":\""+artista+"\"," +
+                    "\"enRep\":\""+enReproduccion+"\"," +
+                    "\"appRun\":\""+apps+"\"," +
+                    "\"infoAdd\":\""+"."+"\"}";
             //IMPRIMIR PETICIONES REST
             //System.out.println("- - - - - - - JSON POST1 - - - - - - - -");
             //System.out.println(jsonPost1);

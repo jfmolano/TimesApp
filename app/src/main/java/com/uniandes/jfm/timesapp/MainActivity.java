@@ -226,9 +226,9 @@ public class MainActivity extends Activity {
                 System.out.print("Consumo de red paquetes (RX): ");
                 System.out.println(TrafficStats.getUidRxPackets(uid));
                 System.out.print("Consumo de red bytes (TX): ");
-                System.out.println(TrafficStats.getUidTxBytes(uid));
+                System.out.println(TrafficStats.getUidTxBytes(uid)/(SystemClock.elapsedRealtime()/(1000*60*60)));
                 System.out.print("Consumo de red bytes (RX): ");
-                System.out.println(TrafficStats.getUidRxBytes(uid));
+                System.out.println(TrafficStats.getUidRxBytes(uid)/(SystemClock.elapsedRealtime()/(1000*60*60)));
             }
         }
         long mStartRX = TrafficStats.getTotalRxBytes();

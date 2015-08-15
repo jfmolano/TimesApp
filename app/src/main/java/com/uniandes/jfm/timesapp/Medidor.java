@@ -43,7 +43,9 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.HttpResponse;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
@@ -180,6 +182,36 @@ public class Medidor extends Service {
         return resp;
     }
 
+    //Dar Wifi mas poderoso
+    public AccessPoint[] darMasPoderosos(){
+        AccessPoint[] apList = new AccessPoint[MainActivity.NUM_AP];
+        for(int i = 0; i < apList.length ; i++)
+        {
+            apList[i] = new AccessPoint("NoSeneca",-1);
+        }
+        ScanResult resp = null;
+        mWifiManager.startScan();
+        while(!listoWifiScan){}
+        listoWifiScan = false;
+        Iterator<ScanResult> it = scanResults.iterator();
+        ArrayList<AccessPoint> lista = new ArrayList<AccessPoint>();
+        while(it.hasNext())
+        {
+            ScanResult sr = it.next();
+            if(sr.SSID.equals("SENECA"))
+            {
+                AccessPoint ap = new AccessPoint(sr.BSSID,sr.level);
+                lista.add(ap);
+            }
+        }
+        Collections.sort(lista);
+        for(int i = 0; i < lista.size() && i < apList.length ; i++)
+        {
+            apList[i] = lista.get(lista.size()-i-1);
+        }
+        return apList;
+    }
+
     public void medicionTest()
     {
 
@@ -266,7 +298,9 @@ public class Medidor extends Service {
         int netmask = dhcpInfo.netmask;
         int servaddress = dhcpInfo.serverAddress;
         //BSSID mas poderoso
-        String scanRes = darBSSIDMasPoderoso();
+        //String scanRes = darBSSIDMasPoderoso();
+        //Dar BSSID mas poderosos
+        AccessPoint[] masPoderosos = darMasPoderosos();
 
         //CODIGO - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
@@ -282,7 +316,7 @@ public class Medidor extends Service {
         //- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
         //- - - - - - - - - - - - - - - - - - - - - - - - - - - POST - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
         //- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-        makeHTTPPOSTRequest(codigo,salon,ipAddress,intToIp(gateway),intToIp(netmask),scanRes,hora,ruidoStr,luzStr);
+        makeHTTPPOSTRequest(codigo,salon,ipAddress,intToIp(gateway),intToIp(netmask),masPoderosos,hora,ruidoStr,luzStr);
     }
 
     //Funcion para pasar numeros raros a direcciones IP STRINGs
@@ -301,7 +335,7 @@ public class Medidor extends Service {
         return scanRes;
     }
 
-    public void makeHTTPPOSTRequest(String codigo,String salon, String ip,String ipAP, String netmask, String macAP, String hora, String ruidoString, String luzString) {
+    public void makeHTTPPOSTRequest(String codigo,String salon, String ip,String ipAP, String netmask, AccessPoint[] macAP, String hora, String ruidoString, String luzString) {
         try {
             String urlPost = MainActivity.URLSERV;
             HttpClient c = new DefaultHttpClient();
@@ -322,9 +356,12 @@ public class Medidor extends Service {
                     "\"infoAdd\":\"-\"}";*/
             String jsonPost = "{\"codigo\":\""+codigo+"\"," +
                     "\"tiempo\":\""+hora+"\"," +
-                    "\"mac1\":\""+macAP+"\"," +
-                    "\"mac2\":\""+macAP+"\"," +
-                    "\"mac3\":\""+macAP+"\"," +
+                    "\"mac1\":\""+macAP[0].macadd+"\"," +
+                    "\"mac1Pot\":\""+macAP[0].potencia+"\"," +
+                    "\"mac2\":\""+macAP[1].macadd+"\"," +
+                    "\"mac2Pot\":\""+macAP[1].potencia+"\"," +
+                    "\"mac3\":\""+macAP[2].macadd+"\"," +
+                    "\"mac3Pot\":\""+macAP[2].potencia+"\"," +
                     "\"ip\":\""+ip+"\"," +
                     "\"ipaccesspoint\":\""+ipAP+"\"," +
                     "\"ruido\":\""+ruidoString+"\"," +

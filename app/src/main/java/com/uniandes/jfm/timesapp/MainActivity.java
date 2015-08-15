@@ -36,6 +36,8 @@ public class MainActivity extends Activity {
     //Parametros medicion de ruido
     public final static int ITERACIONES_RUIDO = 1;
     public final static int T_INTERVALO_RUIDO = 1000;
+    //Medicion de APs
+    public final static int NUM_AP = 3;
     //URL del servidor
     public final static String URLSERV = "http://157.253.235.172:80/api/marcas";
 

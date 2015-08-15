@@ -209,6 +209,7 @@ public class MainActivity extends Activity {
 
     private void metodoPrueba() {
         Toast.makeText(getBaseContext(), "Boton prueba", Toast.LENGTH_LONG).show();
+        String resp = "";
         List<ApplicationInfo> appsInfo = getApplicationContext().getPackageManager()
                 .getInstalledApplications(PackageManager.GET_UNINSTALLED_PACKAGES);
         Iterator<ApplicationInfo> it = appsInfo.iterator();
@@ -217,21 +218,17 @@ public class MainActivity extends Activity {
             ApplicationInfo apInfo = it.next();
             String procName = apInfo.processName;
             int uid = apInfo.uid;
-            if(procName.contains("instagram")||procName.contains("facebook"))
-            {
-                System.out.print("Nombre de proceso: ");
-                System.out.println(procName);
-                System.out.print("uid: ");
-                System.out.println(uid);
-                System.out.print("Consumo de red paquetes (TX): ");
-                System.out.println(TrafficStats.getUidTxPackets(uid));
-                System.out.print("Consumo de red paquetes (RX): ");
-                System.out.println(TrafficStats.getUidRxPackets(uid));
-                System.out.print("Consumo de red bytes (TX): ");
-                System.out.println(TrafficStats.getUidTxBytes(uid)/(SystemClock.elapsedRealtime()/(1000*60*60)));
-                System.out.print("Consumo de red bytes (RX): ");
-                System.out.println(TrafficStats.getUidRxBytes(uid)/(SystemClock.elapsedRealtime()/(1000*60*60)));
-            }
+            System.out.print("Nombre de proceso: ");
+            System.out.println(procName);
+            System.out.print("uid: ");
+            System.out.println(uid);
+            System.out.print("Consumo de red bytes (TX): ");
+            long txBytes = TrafficStats.getUidTxBytes(uid)/(SystemClock.elapsedRealtime()/(1000*60*60));
+            System.out.println(txBytes);
+            System.out.print("Consumo de red bytes (RX): ");
+            long rxBytes = TrafficStats.getUidRxBytes(uid) / (SystemClock.elapsedRealtime() / (1000 * 60 * 60));
+            System.out.println(rxBytes);
+            resp = resp + procName + ";" + txBytes + ";" + rxBytes + ";;";
         }
         long mStartRX = TrafficStats.getTotalRxBytes();
         Toast.makeText(getBaseContext(), "mStartRX "+mStartRX, Toast.LENGTH_LONG).show();

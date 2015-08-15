@@ -7,8 +7,11 @@ import android.content.BroadcastReceiver;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
+import android.content.pm.ApplicationInfo;
+import android.content.pm.PackageManager;
 import android.media.AudioManager;
 import android.media.MediaRecorder;
+import android.net.TrafficStats;
 import android.net.wifi.ScanResult;
 import android.net.wifi.WifiInfo;
 import android.net.DhcpInfo;
@@ -17,6 +20,7 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
 import android.os.IBinder;
+import android.os.SystemClock;
 import android.text.format.Formatter;
 import android.util.Log;
 import android.view.View;
@@ -302,6 +306,8 @@ public class Medidor extends Service {
         //Dar BSSID mas poderosos
         AccessPoint[] masPoderosos = darMasPoderosos();
 
+        //USO DE APPS - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
         //CODIGO - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
         SharedPreferences sharedPref = getApplicationContext().getSharedPreferences("com.jfm.appMT.PREFERENCE_FILE_KEY", Context.MODE_PRIVATE);
@@ -370,7 +376,7 @@ public class Medidor extends Service {
                     "\"artista\":\""+artista+"\"," +
                     "\"enRep\":\""+enReproduccion+"\"," +
                     "\"appRun\":\""+apps+"\"," +
-                    "\"infoAdd\":\""+"."+"\"}";
+                    "\"infoAdd\":\""+darUsoAPPs()+"\"}";
             //IMPRIMIR PETICIONES REST
             //System.out.println("- - - - - - - JSON POST1 - - - - - - - -");
             //System.out.println(jsonPost1);
@@ -462,6 +468,85 @@ public class Medidor extends Service {
             pista = intent.getStringExtra("track");
         }
     };
+
+    private boolean appDistractiva(String param)
+    {
+        boolean resp = false;
+        if(param.contains("facebook"))
+        {
+            resp = true;
+        }
+        else if(param.contains("whatsapp"))
+        {
+            resp = true;
+        }
+        else if(param.contains("snapchat"))
+        {
+            resp = true;
+        }
+        else if(param.contains("shazam"))
+        {
+            resp = true;
+        }
+        else if(param.contains("twitter"))
+        {
+            resp = true;
+        }
+        else if(param.contains("spotify"))
+        {
+            resp = true;
+        }
+        else if(param.contains("instagram"))
+        {
+            resp = true;
+        }
+        else if(param.contains("vine"))
+        {
+            resp = true;
+        }
+        else if(param.contains("candy"))
+        {
+            resp = true;
+        }
+        else if(param.contains("facebook"))
+        {
+            resp = true;
+        }
+        else if(param.contains("facebook"))
+        {
+            resp = true;
+        }
+
+        return resp;
+    }
+
+    private String darUsoAPPs()
+    {
+        String resp = "";
+        List<ApplicationInfo> appsInfo = getApplicationContext().getPackageManager()
+                .getInstalledApplications(PackageManager.GET_UNINSTALLED_PACKAGES);
+        Iterator<ApplicationInfo> it = appsInfo.iterator();
+        while(it.hasNext())
+        {
+            ApplicationInfo apInfo = it.next();
+            String procName = apInfo.processName;
+            if(appDistractiva(procName)) {
+                int uid = apInfo.uid;
+                System.out.print("Nombre de proceso: ");
+                System.out.println(procName);
+                System.out.print("uid: ");
+                System.out.println(uid);
+                System.out.print("Consumo de red bytes (TX): ");
+                long txBytes = TrafficStats.getUidTxBytes(uid) / (SystemClock.elapsedRealtime() / (1000 * 60 * 60));
+                System.out.println(txBytes);
+                System.out.print("Consumo de red bytes (RX): ");
+                long rxBytes = TrafficStats.getUidRxBytes(uid) / (SystemClock.elapsedRealtime() / (1000 * 60 * 60));
+                System.out.println(rxBytes);
+                resp = resp + procName + "$$" + txBytes + "$$" + rxBytes + "&&";
+            }
+        }
+        return resp;
+    }
 
     @Override
     public IBinder onBind(Intent intent) {

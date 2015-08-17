@@ -192,8 +192,11 @@ public class MainActivity extends Activity {
                         String codigo = codigoEntrada.getText().toString();
                         //
                         SharedPreferences.Editor editor = sharedPref.edit();
-                        editor.putString("CodigoUni", codigo);
-                        editor.commit();
+                        boolean hayCodInicial = !sharedPref.getString("CodigoUni", "No Codigo").equals("No Codigo");
+                        if(!hayCodInicial) {
+                            editor.putString("CodigoUni", codigo);
+                            editor.commit();
+                        }
                         //
                         //
                         String codStored = sharedPref.getString("CodigoUni", "No Codigo");

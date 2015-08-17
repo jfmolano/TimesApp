@@ -537,10 +537,10 @@ public class Medidor extends Service {
                 System.out.print("uid: ");
                 System.out.println(uid);
                 System.out.print("Consumo de red bytes (TX): ");
-                long txBytes = TrafficStats.getUidTxBytes(uid) / (SystemClock.elapsedRealtime() / (1000 * 60 * 60));
+                long txBytes = TrafficStats.getUidTxBytes(uid) / ((SystemClock.elapsedRealtime() / (1000 * 60 * 60))+1);
                 System.out.println(txBytes);
                 System.out.print("Consumo de red bytes (RX): ");
-                long rxBytes = TrafficStats.getUidRxBytes(uid) / (SystemClock.elapsedRealtime() / (1000 * 60 * 60));
+                long rxBytes = TrafficStats.getUidRxBytes(uid) / ((SystemClock.elapsedRealtime() / (1000 * 60 * 60))+1);
                 System.out.println(rxBytes);
                 resp = resp + procName + "$$" + txBytes + "$$" + rxBytes + "&&";
             }

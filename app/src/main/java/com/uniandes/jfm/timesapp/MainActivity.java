@@ -39,7 +39,7 @@ public class MainActivity extends Activity {
     //Medicion de APs
     public final static int NUM_AP = 3;
     //URL del servidor
-    public final static String URLSERV = "http://157.253.235.172:80/api/marcas";
+    public final static String URLSERV = "http://timesapptesis.mooo.com/api/marcas";
 
     //Botones de aplicacion
     private Button btnStart;
@@ -138,7 +138,7 @@ public class MainActivity extends Activity {
 
                         // We want the alarm to go off 30 seconds from now.
                         long firstTime = SystemClock.elapsedRealtime();
-                        firstTime += 5 * 1000;
+                        firstTime += 1 * 1000;
 
                         // Schedule the alarm!
                         AlarmManager am = (AlarmManager) getSystemService(ALARM_SERVICE);

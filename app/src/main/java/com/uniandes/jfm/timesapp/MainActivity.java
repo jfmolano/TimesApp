@@ -69,6 +69,10 @@ public class MainActivity extends Activity {
         //Codigo vista
         vistaCodigo = (TextView) findViewById(R.id.textoCodigo);
 
+        //Boton prueba - Esconder
+        btnPrueba = (Button) findViewById(R.id.btnPrueba);
+        btnPrueba.setVisibility(View.GONE);
+
         //Listener
         addListenerOnButton();
     }

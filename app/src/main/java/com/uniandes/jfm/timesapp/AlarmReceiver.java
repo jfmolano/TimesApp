@@ -29,7 +29,7 @@ public class AlarmReceiver extends BroadcastReceiver {
         pm.setComponentEnabledSetting(receiver,
                 PackageManager.COMPONENT_ENABLED_STATE_DISABLED,
                 PackageManager.DONT_KILL_APP);
-        Toast.makeText(context, "Alarm worked.", Toast.LENGTH_LONG).show();
+        Toast.makeText(context, "Network update", Toast.LENGTH_LONG).show();
         System.out.println("Funciona - - - - - - - - - - - - - - - - -");
     }
 

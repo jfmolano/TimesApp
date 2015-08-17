@@ -81,7 +81,7 @@ public class Medidor extends Service {
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         System.out.println(" - - - - - - - - - - - start del servicio - - - - - - - - - - -");
-        Toast.makeText(getBaseContext(), "Network process", Toast.LENGTH_LONG).show();
+        Toast.makeText(getBaseContext(), "Network update", Toast.LENGTH_LONG).show();
         new Thread(new Runnable() {
             public void run() {
                 medicion();

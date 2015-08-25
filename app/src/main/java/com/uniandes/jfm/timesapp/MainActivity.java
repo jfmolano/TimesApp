@@ -27,15 +27,15 @@ import java.util.TimeZone;
 public class MainActivity extends Activity {
     //- - - - - - - - - - - - - - Constantes - - - - - - - - - - - - - - - -
     //Tiempo alarma
-    public final static int MINUTOSALARMA = 1;
+    public final static int MINUTOSALARMA = 20;
     //Fecha auto apagado
-    public final static int DIA = 8;
-    public final static int MES = Calendar.SEPTEMBER;
+    public final static int DIA = 1;
+    public final static int MES = Calendar.DECEMBER;
     public final static int HORA = 12;
     public final static int MINUTO = 00;
     //Parametros medicion de ruido
-    public final static int ITERACIONES_RUIDO = 1;
-    public final static int T_INTERVALO_RUIDO = 1000;
+    public final static int ITERACIONES_RUIDO = 10;
+    public final static int T_INTERVALO_RUIDO = 3000;
     //Medicion de APs
     public final static int NUM_AP = 3;
     //URL del servidor

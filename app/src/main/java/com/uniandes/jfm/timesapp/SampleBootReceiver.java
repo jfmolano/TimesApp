@@ -12,8 +12,7 @@ import java.util.Locale;
 import java.util.TimeZone;
 
 public class SampleBootReceiver extends BroadcastReceiver {
-    //Constantes
-    private final static int MINUTOSALARMA = 1;
+
 
     @Override
     public void onReceive(Context context, Intent intent) {
@@ -29,7 +28,7 @@ public class SampleBootReceiver extends BroadcastReceiver {
             // Schedule the alarm!
             AlarmManager am = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
             am.setRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP, firstTime,
-                    MINUTOSALARMA * 60 * 1000, sender);
+                    MainActivity.MINUTOSALARMA * 60 * 1000, sender);
 
             //Auto apagado
             //Alarma auto apagado
